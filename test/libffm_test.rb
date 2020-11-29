@@ -6,8 +6,8 @@ class LibffmTest < Minitest::Test
     model.fit("test/support/data.txt")
 
     predictions = model.predict("test/support/data.txt")
-    assert_in_delta 0.474183, predictions[0]
-    assert_in_delta 0.660218, predictions[1]
+    assert_in_delta 0.474183, predictions[0], 0.02
+    assert_in_delta 0.660218, predictions[1], 0.02
 
     path = File.join(Dir.mktmpdir, "model.bin")
     model.save_model(path)
@@ -17,8 +17,8 @@ class LibffmTest < Minitest::Test
     model.load_model(path)
 
     predictions = model.predict("test/support/data.txt")
-    assert_in_delta 0.474183, predictions[0]
-    assert_in_delta 0.660218, predictions[1]
+    assert_in_delta 0.474183, predictions[0], 0.02
+    assert_in_delta 0.660218, predictions[1], 0.02
   end
 
   def test_eval_set

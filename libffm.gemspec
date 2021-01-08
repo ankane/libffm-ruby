@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir["*.{md,txt}", "{ext,lib,vendor}/**/*"]
   spec.require_path  = "lib"
+  spec.extensions    = ["ext/libffm/extconf.rb"]
 
   spec.required_ruby_version = ">= 2.5"
 

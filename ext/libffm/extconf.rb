@@ -1,7 +1,5 @@
 require "mkmf-rice"
 
-# -DUSESSE requires sse3
-# TODO test for it or update fork to use __SSE3__
 $CXXFLAGS += " -std=c++11 -march=native"
 
 apple_clang = RbConfig::CONFIG["CC_VERSION_MESSAGE"] =~ /apple clang/i

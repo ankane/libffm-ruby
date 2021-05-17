@@ -5,10 +5,8 @@
 #include <ffm.h>
 
 // rice
-#include <rice/Array.hpp>
-#include <rice/Class.hpp>
-#include <rice/Module.hpp>
-#include <rice/Object.hpp>
+#include <rice/rice.hpp>
+#include <rice/stl.hpp>
 
 using Rice::Array;
 using Rice::Class;
@@ -28,14 +26,14 @@ void Init_ext()
   define_class_under<ffm::ffm_model>(rb_mExt, "Model");
 
   rb_mExt
-    .define_singleton_method(
+    .define_singleton_function(
       "release_model",
-      *[](ffm::ffm_model& model) {
+      [](ffm::ffm_model& model) {
         model.release();
       })
-    .define_singleton_method(
+    .define_singleton_function(
       "fit",
-      *[](std::string tr_path, std::string va_path, std::string tmp_prefix, ffm::ffm_float eta, ffm::ffm_float lambda, ffm::ffm_int nr_iters, ffm::ffm_int k, bool normalization, bool auto_stop) {
+      [](const std::string& tr_path, const std::string& va_path, const std::string& tmp_prefix, ffm::ffm_float eta, ffm::ffm_float lambda, ffm::ffm_int nr_iters, ffm::ffm_int k, bool normalization, bool auto_stop) {
         // quiet
         ffm::cout.setstate(ffm::ios_base::badbit);
 
@@ -58,9 +56,9 @@ void Init_ext()
 
         return ffm::ffm_train_on_disk(tr_bin_path, va_bin_path, param);
       })
-    .define_singleton_method(
+    .define_singleton_function(
       "predict",
-      *[](ffm::ffm_model& model, std::string test_path) {
+      [](ffm::ffm_model& model, const std::string& test_path) {
         int const kMaxLineSize = 1000000;
 
         FILE *f_in = fopen(test_path.c_str(), "r");
@@ -97,14 +95,14 @@ void Init_ext()
 
         return ret;
       })
-    .define_singleton_method(
+    .define_singleton_function(
       "save_model",
-      *[](ffm::ffm_model& model, std::string path) {
+      [](ffm::ffm_model& model, const std::string& path) {
         ffm::ffm_save_model(model, path);
       })
-    .define_singleton_method(
+    .define_singleton_function(
       "load_model",
-      *[](std::string path) {
+      [](const std::string& path) {
         return ffm::ffm_load_model(path);
       });
 }

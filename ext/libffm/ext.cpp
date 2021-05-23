@@ -20,9 +20,9 @@ using Rice::define_class_under;
 extern "C"
 void Init_ext()
 {
-  Module rb_mLibffm = define_module("Libffm");
+  auto rb_mLibffm = define_module("Libffm");
 
-  Module rb_mExt = define_module_under(rb_mLibffm, "Ext");
+  auto rb_mExt = define_module_under(rb_mLibffm, "Ext");
   define_class_under<ffm::ffm_model>(rb_mExt, "Model");
 
   rb_mExt
@@ -72,11 +72,11 @@ void Init_ext()
           x.clear();
           strtok(line, " \t");
 
-          while(true) {
+          while (true) {
             char *field_char = strtok(nullptr,":");
             char *idx_char = strtok(nullptr,":");
             char *value_char = strtok(nullptr," \t");
-            if(field_char == nullptr || *field_char == '\n')
+            if (field_char == nullptr || *field_char == '\n')
                 break;
 
             ffm::ffm_node N;

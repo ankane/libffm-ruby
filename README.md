@@ -1,8 +1,8 @@
-# LIBFFM
+# LIBFFM Ruby
 
 [LIBFFM](https://github.com/ycjuan/libffm) - field-aware factorization machines - for Ruby
 
-[![Build Status](https://github.com/ankane/libffm/workflows/build/badge.svg?branch=master)](https://github.com/ankane/libffm/actions)
+[![Build Status](https://github.com/ankane/libffm-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/libffm-ruby/actions)
 
 ## Installation
 
@@ -69,22 +69,22 @@ Libffm::Model.new(
 
 ## History
 
-View the [changelog](https://github.com/ankane/libffm/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/ankane/libffm-ruby/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/libffm/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/libffm/pulls)
+- [Report bugs](https://github.com/ankane/libffm-ruby/issues)
+- Fix bugs and [submit pull requests](https://github.com/ankane/libffm-ruby/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone --recursive https://github.com/ankane/libffm.git
-cd libffm
+git clone --recursive https://github.com/ankane/libffm-ruby.git
+cd libffm-ruby
 bundle install
 bundle exec rake compile
 bundle exec rake test

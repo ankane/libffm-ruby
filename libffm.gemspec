@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "libffm"
   spec.version       = Libffm::VERSION
   spec.summary       = "Field-aware factorization machines for Ruby"
-  spec.homepage      = "https://github.com/ankane/libffm"
+  spec.homepage      = "https://github.com/ankane/libffm-ruby"
   spec.license       = "MIT"
 
   spec.author        = "Andrew Kane"

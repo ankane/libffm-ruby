@@ -1,4 +1,4 @@
-## 0.2.2 (unreleased)
+## 0.2.2 (2022-12-26)
 
 - Fixed error in finalizer
 

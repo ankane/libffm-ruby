@@ -39,7 +39,7 @@ module Libffm
     end
 
     def self.finalize_model(model)
-      proc { Ext.finalize_model(model) }
+      proc { Ext.release_model(model) }
     end
   end
 end

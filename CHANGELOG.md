@@ -1,3 +1,7 @@
+## 0.2.2 (unreleased)
+
+- Fixed error in finalizer
+
 ## 0.2.1 (2021-05-23)
 
 - Improved performance

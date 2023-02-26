@@ -1,3 +1,7 @@
+## 0.2.3 (unreleased)
+
+- Fixed installation on Mac ARM
+
 ## 0.2.2 (2022-12-26)
 
 - Fixed error in finalizer

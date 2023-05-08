@@ -1,3 +1,7 @@
+## 0.3.0 (unreleased)
+
+- Dropped support for Ruby < 3
+
 ## 0.2.3 (2022-02-27)
 
 - Fixed installation on Mac ARM

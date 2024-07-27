@@ -2,7 +2,7 @@
 
 [LIBFFM](https://github.com/ycjuan/libffm) - field-aware factorization machines - for Ruby
 
-[![Build Status](https://github.com/ankane/libffm-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/libffm-ruby/actions)
+[![Build Status](https://github.com/ankane/libffm-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/libffm-ruby/actions)
 
 ## Installation
 

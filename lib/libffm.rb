@@ -5,8 +5,8 @@ require "libffm/ext"
 require "tmpdir"
 
 # modules
-require "libffm/model"
-require "libffm/version"
+require_relative "libffm/model"
+require_relative "libffm/version"
 
 module Libffm
   class Error < StandardError; end

@@ -1,4 +1,6 @@
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <string>
 
@@ -49,28 +51,28 @@ void Init_ext() {
       [](ffm::ffm_model& model, const std::string& test_path) {
         int const kMaxLineSize = 1000000;
 
-        FILE *f_in = fopen(test_path.c_str(), "r");
+        std::FILE *f_in = std::fopen(test_path.c_str(), "r");
         char line[kMaxLineSize];
 
         ffm::vector<ffm::ffm_node> x;
         ffm::ffm_int i = 0;
 
         Rice::Array ret;
-        for(; fgets(line, kMaxLineSize, f_in) != nullptr; i++) {
+        for(; std::fgets(line, kMaxLineSize, f_in) != nullptr; i++) {
           x.clear();
-          strtok(line, " \t");
+          std::strtok(line, " \t");
 
           while (true) {
-            char *field_char = strtok(nullptr, ":");
-            char *idx_char = strtok(nullptr, ":");
-            char *value_char = strtok(nullptr, " \t");
+            char *field_char = std::strtok(nullptr, ":");
+            char *idx_char = std::strtok(nullptr, ":");
+            char *value_char = std::strtok(nullptr, " \t");
             if (field_char == nullptr || *field_char == '\n')
                 break;
 
             ffm::ffm_node N;
-            N.f = atoi(field_char);
-            N.j = atoi(idx_char);
-            N.v = atof(value_char);
+            N.f = std::atoi(field_char);
+            N.j = std::atoi(idx_char);
+            N.v = std::atof(value_char);
 
             x.push_back(N);
           }
@@ -79,7 +81,7 @@ void Init_ext() {
           ret.push(y_bar);
         }
 
-        fclose(f_in);
+        std::fclose(f_in);
 
         return ret;
       })

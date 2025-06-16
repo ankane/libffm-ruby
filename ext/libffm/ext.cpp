@@ -1,29 +1,17 @@
-// stdlib
+#include <cstdio>
 #include <iostream>
+#include <string>
 
-// ffm
 #include <ffm.h>
-
-// rice
 #include <rice/rice.hpp>
 #include <rice/stl.hpp>
 
-using Rice::Array;
-using Rice::Class;
-using Rice::Module;
-using Rice::Object;
-using Rice::String;
-using Rice::define_module;
-using Rice::define_module_under;
-using Rice::define_class_under;
-
 extern "C"
-void Init_ext()
-{
-  auto rb_mLibffm = define_module("Libffm");
+void Init_ext() {
+  auto rb_mLibffm = Rice::define_module("Libffm");
 
-  auto rb_mExt = define_module_under(rb_mLibffm, "Ext");
-  define_class_under<ffm::ffm_model>(rb_mExt, "Model");
+  auto rb_mExt = Rice::define_module_under(rb_mLibffm, "Ext");
+  Rice::define_class_under<ffm::ffm_model>(rb_mExt, "Model");
 
   rb_mExt
     .define_singleton_function(
@@ -67,15 +55,15 @@ void Init_ext()
         ffm::vector<ffm::ffm_node> x;
         ffm::ffm_int i = 0;
 
-        Array ret;
+        Rice::Array ret;
         for(; fgets(line, kMaxLineSize, f_in) != nullptr; i++) {
           x.clear();
           strtok(line, " \t");
 
           while (true) {
-            char *field_char = strtok(nullptr,":");
-            char *idx_char = strtok(nullptr,":");
-            char *value_char = strtok(nullptr," \t");
+            char *field_char = strtok(nullptr, ":");
+            char *idx_char = strtok(nullptr, ":");
+            char *value_char = strtok(nullptr, " \t");
             if (field_char == nullptr || *field_char == '\n')
                 break;
 

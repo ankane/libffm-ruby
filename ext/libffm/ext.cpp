@@ -78,7 +78,7 @@ void Init_ext() {
           }
 
           ffm::ffm_float y_bar = ffm::ffm_predict(x.data(), x.data()+x.size(), model);
-          ret.push(y_bar);
+          ret.push(y_bar, false);
         }
 
         std::fclose(f_in);

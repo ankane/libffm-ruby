@@ -49,41 +49,61 @@ void Init_ext() {
     .define_singleton_function(
       "predict",
       [](ffm::ffm_model& model, const std::string& test_path) {
-        int const kMaxLineSize = 1000000;
-
-        std::FILE* f_in = std::fopen(test_path.c_str(), "r");
-        char line[kMaxLineSize];
-
-        ffm::vector<ffm::ffm_node> x;
-        ffm::ffm_int i = 0;
+        std::ifstream f_in(test_path);
+        if (!f_in.is_open()) {
+          throw std::runtime_error("Cannot open file");
+        }
+        std::string line;
 
         Rice::Array ret;
-        for(; std::fgets(line, kMaxLineSize, f_in) != nullptr; i++) {
-          x.clear();
-          std::strtok(line, " \t");
+        while (std::getline(f_in, line)) {
+          ffm::vector<ffm::ffm_node> x;
+
+          size_t n = line.find_first_of(" \t");
+          if (n == std::string::npos) {
+            throw std::runtime_error("Invalid line");
+          }
+
+          size_t start = n + 1;
 
           while (true) {
-            char* field_char = std::strtok(nullptr, ":");
-            char* idx_char = std::strtok(nullptr, ":");
-            char* value_char = std::strtok(nullptr, " \t");
-            if (field_char == nullptr || *field_char == '\n') {
-              break;
+            n = line.find_first_of(" \t", start);
+
+            std::string s = n == std::string::npos ? line.substr(start) : line.substr(start, n - start);
+
+            size_t n2 = s.find(':');
+            if (n2 == std::string::npos) {
+              throw std::runtime_error("Invalid line");
             }
 
+            size_t n3 = s.find(':', n2 + 1);
+            if (n3 == std::string::npos) {
+              throw std::runtime_error("Invalid line");
+            }
+
+            // TODO use string_view
+            std::string field_char = s.substr(0, n2);
+            std::string idx_char = s.substr(n2 + 1, n3);
+            std::string value_char = s.substr(n3 + 1);
+
             ffm::ffm_node N{
-              std::atoi(field_char),
-              std::atoi(idx_char),
-              static_cast<ffm::ffm_float>(std::atof(value_char))
+              std::stoi(field_char),
+              std::stoi(idx_char),
+              static_cast<ffm::ffm_float>(std::stof(value_char))
             };
 
             x.push_back(N);
+
+            if (n == std::string::npos) {
+              break;
+            }
+
+            start = n + 1;
           }
 
           ffm::ffm_float y_bar = ffm::ffm_predict(x.data(), x.data() + x.size(), model);
           ret.push(y_bar, false);
         }
-
-        std::fclose(f_in);
 
         return ret;
       })

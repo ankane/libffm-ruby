@@ -30,8 +30,8 @@ void Init_ext() {
         std::string tr_bin_path = tmp_prefix + "train.bin";
         ffm::ffm_read_problem_to_disk(tr_path, tr_bin_path);
 
-        std::string va_bin_path = "";
-        if (va_path.size() > 0) {
+        std::string va_bin_path;
+        if (!va_path.empty()) {
           va_bin_path = tmp_prefix + "validation.bin";
           ffm::ffm_read_problem_to_disk(va_path, va_bin_path);
         }
@@ -51,7 +51,7 @@ void Init_ext() {
       [](ffm::ffm_model& model, const std::string& test_path) {
         int const kMaxLineSize = 1000000;
 
-        std::FILE *f_in = std::fopen(test_path.c_str(), "r");
+        std::FILE* f_in = std::fopen(test_path.c_str(), "r");
         char line[kMaxLineSize];
 
         ffm::vector<ffm::ffm_node> x;
@@ -63,11 +63,12 @@ void Init_ext() {
           std::strtok(line, " \t");
 
           while (true) {
-            char *field_char = std::strtok(nullptr, ":");
-            char *idx_char = std::strtok(nullptr, ":");
-            char *value_char = std::strtok(nullptr, " \t");
-            if (field_char == nullptr || *field_char == '\n')
-                break;
+            char* field_char = std::strtok(nullptr, ":");
+            char* idx_char = std::strtok(nullptr, ":");
+            char* value_char = std::strtok(nullptr, " \t");
+            if (field_char == nullptr || *field_char == '\n') {
+              break;
+            }
 
             ffm::ffm_node N;
             N.f = std::atoi(field_char);
@@ -77,7 +78,7 @@ void Init_ext() {
             x.push_back(N);
           }
 
-          ffm::ffm_float y_bar = ffm::ffm_predict(x.data(), x.data()+x.size(), model);
+          ffm::ffm_float y_bar = ffm::ffm_predict(x.data(), x.data() + x.size(), model);
           ret.push(y_bar, false);
         }
 

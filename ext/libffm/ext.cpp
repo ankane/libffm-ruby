@@ -70,10 +70,11 @@ void Init_ext() {
               break;
             }
 
-            ffm::ffm_node N;
-            N.f = std::atoi(field_char);
-            N.j = std::atoi(idx_char);
-            N.v = std::atof(value_char);
+            ffm::ffm_node N{
+              std::atoi(field_char),
+              std::atoi(idx_char),
+              static_cast<ffm::ffm_float>(std::atof(value_char))
+            };
 
             x.push_back(N);
           }

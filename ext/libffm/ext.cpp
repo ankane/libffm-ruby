@@ -84,15 +84,15 @@ void Init_ext() {
               throw std::runtime_error{"Invalid line"};
             }
 
-            // cannot pass string view to stoi/stof
-            std::string field_char{s.substr(0, n2)};
-            std::string idx_char{s.substr(n2 + 1, n3)};
-            std::string value_char{s.substr(n3 + 1)};
+            std::string_view field_char = s.substr(0, n2);
+            std::string_view idx_char = s.substr(n2 + 1, n3);
+            std::string_view value_char = s.substr(n3 + 1);
 
+            // cannot pass string view to stoi/stof
             ffm::ffm_node N{
-              std::stoi(field_char),
-              std::stoi(idx_char),
-              static_cast<ffm::ffm_float>(std::stof(value_char))
+              std::stoi(std::string{field_char}),
+              std::stoi(std::string{idx_char}),
+              std::stof(std::string{value_char})
             };
 
             x.push_back(N);

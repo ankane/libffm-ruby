@@ -2,8 +2,10 @@
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include <ffm.h>
 #include <rice/rice.hpp>
@@ -26,7 +28,7 @@ void Init_ext() {
       "fit",
       [](const std::string& tr_path, const std::string& va_path, const std::string& tmp_prefix, ffm::ffm_float eta, ffm::ffm_float lambda, ffm::ffm_int nr_iters, ffm::ffm_int k, bool normalization, bool auto_stop) {
         // quiet
-        ffm::cout.setstate(ffm::ios_base::badbit);
+        std::cout.setstate(std::ios_base::badbit);
 
         std::string tr_bin_path = tmp_prefix + "train.bin";
         ffm::ffm_read_problem_to_disk(tr_path, tr_bin_path);
@@ -58,7 +60,7 @@ void Init_ext() {
 
         Rice::Array ret;
         while (std::getline(f_in, line)) {
-          ffm::vector<ffm::ffm_node> x;
+          std::vector<ffm::ffm_node> x;
 
           std::string_view line_view{line};
 

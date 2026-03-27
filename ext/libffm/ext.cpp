@@ -87,7 +87,7 @@ void Init_ext() {
             }
 
             std::string_view field_char = s.substr(0, n2);
-            std::string_view idx_char = s.substr(n2 + 1, n3);
+            std::string_view idx_char = s.substr(n2 + 1, n3 - n2 - 1);
             std::string_view value_char = s.substr(n3 + 1);
 
             // cannot pass string view to stoi/stof

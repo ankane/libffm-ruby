@@ -9,7 +9,6 @@
 
 #include <ffm.h>
 #include <rice/rice.hpp>
-#include <rice/stl.hpp>
 
 extern "C"
 void Init_ext() {
@@ -26,17 +25,17 @@ void Init_ext() {
       })
     .define_singleton_function(
       "fit",
-      [](const std::string& tr_path, const std::string& va_path, const std::string& tmp_prefix, ffm::ffm_float eta, ffm::ffm_float lambda, ffm::ffm_int nr_iters, ffm::ffm_int k, bool normalization, bool auto_stop) {
+      [](Rice::String tr_path, Rice::String va_path, Rice::String tmp_prefix, ffm::ffm_float eta, ffm::ffm_float lambda, ffm::ffm_int nr_iters, ffm::ffm_int k, bool normalization, bool auto_stop) {
         // quiet
         std::cout.setstate(std::ios_base::badbit);
 
-        std::string tr_bin_path = tmp_prefix + "train.bin";
-        ffm::ffm_read_problem_to_disk(tr_path, tr_bin_path);
+        std::string tr_bin_path = tmp_prefix.str() + "train.bin";
+        ffm::ffm_read_problem_to_disk(tr_path.str(), tr_bin_path);
 
         std::string va_bin_path;
-        if (!va_path.empty()) {
-          va_bin_path = tmp_prefix + "validation.bin";
-          ffm::ffm_read_problem_to_disk(va_path, va_bin_path);
+        if (va_path.length() != 0) {
+          va_bin_path = tmp_prefix.str() + "validation.bin";
+          ffm::ffm_read_problem_to_disk(va_path.str(), va_bin_path);
         }
 
         ffm::ffm_parameter param;
@@ -51,8 +50,8 @@ void Init_ext() {
       })
     .define_singleton_function(
       "predict",
-      [](ffm::ffm_model& model, const std::string& test_path) {
-        std::ifstream f_in(test_path);
+      [](ffm::ffm_model& model, Rice::String test_path) {
+        std::ifstream f_in(test_path.str());
         if (!f_in.is_open()) {
           throw std::runtime_error{"Cannot open file"};
         }
@@ -114,12 +113,12 @@ void Init_ext() {
       })
     .define_singleton_function(
       "save_model",
-      [](ffm::ffm_model& model, const std::string& path) {
-        ffm::ffm_save_model(model, path);
+      [](ffm::ffm_model& model, Rice::String path) {
+        ffm::ffm_save_model(model, path.str());
       })
     .define_singleton_function(
       "load_model",
-      [](const std::string& path) {
-        return ffm::ffm_load_model(path);
+      [](Rice::String path) {
+        return ffm::ffm_load_model(path.str());
       });
 }

@@ -1,6 +1,7 @@
-## 0.4.2 (unreleased)
+## 0.5.0 (unreleased)
 
 - Improved installation time
+- Dropped support for Ruby < 3.3
 
 ## 0.4.1 (2025-10-26)
 

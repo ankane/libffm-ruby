@@ -1,4 +1,4 @@
-## 0.5.0 (unreleased)
+## 0.5.0 (2026-04-04)
 
 - Improved installation time
 - Dropped support for Ruby < 3.3
